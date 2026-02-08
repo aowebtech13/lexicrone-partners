@@ -7,7 +7,7 @@ import React from 'react';
 
 // shap import here
 import shape_1 from "../../../public/assets/img/login/login-shape-1.png";
-import shape_2 from "../../../public/assets/img/login/login-2.png";
+
 import shape_3 from "../../../public/assets/img/login/login-1.png";
 import shape_4 from "../../../public/assets/img/login/login-3.png";
 import shape_5 from "../../../public/assets/img/login/login-4.png";
