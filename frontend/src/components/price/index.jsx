@@ -3,7 +3,7 @@ import TestimonialArea from "@/src/common/testimonial-area";
 import FooterFive from "@/src/layout/footers/footer-5";
 import HeaderSix from "@/src/layout/headers/header-6";
 import React from "react";
-import Brand from "../about/brand";
+
 import CtaArea from "../contact/cta-area";
 import FaqArea from "../homes/home-2/faq-area";
 import PlanArea from "./plan-area";
@@ -19,7 +19,7 @@ const Price = () => {
             <BreadcrumbFive />
             <PriceArea />
             <PlanArea />
-            <Brand />
+           
             <TestimonialArea />
             <FaqArea style_service={true}/>
              <CtaArea />
