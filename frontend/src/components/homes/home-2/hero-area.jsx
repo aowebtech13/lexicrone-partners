@@ -71,7 +71,7 @@ const HeroArea = () => {
                   className="tp-btn-green wow tpfadeUp"
                   data-wow-duration=".9s"
                   data-wow-delay=".5s"
-                  href="/service-details"
+                  href="/register"
                 >
                   {btn_text}
                 </Link>

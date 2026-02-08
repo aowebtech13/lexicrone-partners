@@ -11,6 +11,7 @@ const schema = yup
   .object({
     fullname: yup.string().required().label("FullName"),
     email: yup.string().required().email().label("Email"),
+    phone: yup.string().required().label("Phone"),
     password: yup.string().required().min(6).label("Password"),
 
   })
@@ -64,6 +65,17 @@ const RegisterForm = () => {
               />
               <span className="floating-label">Your Email</span>
               <p className="form_error">{errors.email?.message}</p>
+            </div>
+          </div>
+          <div className="col-12">
+            <div className="postbox__comment-input mb-30"> 
+              <input
+                name="phone"
+                className="inputText"
+                {...register("phone")}
+              />
+              <span className="floating-label">Phone Number</span>
+              <p className="form_error">{errors.phone?.message}</p>
             </div>
           </div>
           <div className="col-12">

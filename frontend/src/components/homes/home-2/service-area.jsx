@@ -120,8 +120,8 @@ const ServiceArea = () => {
                                  <Image src={item.img} alt="theme-pure" />
                               </div>
                               <div className="tp-service-2__text">
-                                 <h4 className="tp-service-2__title-sm"><Link href="/service-details">{item.title}</Link></h4>
-                                 <Link className="tp-service-2__link" href="/service-details">Explore
+                                 <h4 className="tp-service-2__title-sm"><Link href="/register">{item.title}</Link></h4>
+                                 <Link className="tp-service-2__link" href="/register">Explore
                                     <i className="far fa-arrow-right"></i>
                                  </Link>
                               </div>

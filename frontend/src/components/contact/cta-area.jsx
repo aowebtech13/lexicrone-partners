@@ -21,7 +21,7 @@ const CtaArea = () => {
                            <div className="tp-cta-content tp-inner-font text-center">
                               <h3 className="tp-section-title text-white">{title}</h3>
                               <p>{description}</p>
-                                 <Link className="tp-btn-inner white-bg text-black" href="/service-details">{btn_text}</Link>
+                                 <Link className="tp-btn-inner white-bg text-black" href="/register">{btn_text}</Link>
                            </div>
                         </div>
                      </div>

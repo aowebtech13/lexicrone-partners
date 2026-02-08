@@ -47,11 +47,11 @@ const ServicesArea = () => {
                                     <Image src={item.img} alt="theme-pure" />
                                 </div>
                                 <div className="tp-service__content">
-                                    <h3 className="tp-service__title-sm tp-yellow-color"><Link href="/service-details">{item.title}</Link></h3>
+                                    <h3 className="tp-service__title-sm tp-yellow-color"><Link href="/register">{item.title}</Link></h3>
                                     <p>{item.description}</p>
                                 </div>
                                 <div className="tp-service__link">
-                                    <Link href="/service-details">
+                                    <Link href="/register">
                                         <RightArrow /> 
                                     </Link>
                                 </div>
@@ -65,7 +65,7 @@ const ServicesArea = () => {
                            <div className="tp-service__top-content">
                               <h3 className="tp-service__title-white">{title_2}</h3>
                               <p>{des}</p>
-                              <Link className="tp-btn-orange tp-btn-hover alt-color-white" href="/project-details">
+                              <Link className="tp-btn-orange tp-btn-hover alt-color-white" href="/register">
                                  <span>{btn_text}</span>
                                  <b></b>
                               </Link>

@@ -21,7 +21,7 @@ const footer_content  = {
     contact_mail: "contact@info.com",
     location: "1234 North Avenue Luke Lane, South Bend,",
 
-    copy_right: <>Full Copyright & Design By <Link href="#">@Theme pure</Link> – {new Date().getFullYear()}</>,
+    copy_right: <>Full Copyright & Design By <Link href="#">@A.O Webtech </Link> – {new Date().getFullYear()}</>,
 
     footer_lisks : [
         {
@@ -33,10 +33,7 @@ const footer_content  = {
             links: [
                 {name: "Business", link: "#"},
                 {name: "Technology", link: "#"},
-                {name: "Online Marketing", link: "#"},
-                {name: "Advertising Strategy", link: "#"},
-                {name: "Strategy", link: "#"},
-                {name: "Development", link: "#"},
+               
             ]
         },
         {
@@ -48,10 +45,7 @@ const footer_content  = {
             links: [
                 {name: "About", link: "/about"},
                 {name: "Services", link: "/service"},
-                {name: "How It Works", link: "#"},
-                {name: "Pricing Plan", link: "/price"},
-                {name: "Blog", link: "/blog"},
-                {name: "Contact", link: "/contact"},
+            
             ]
         },
 
@@ -166,13 +160,7 @@ const Footer = () => {
                                           </span>
                                           <Link href={`mailto:${contact_mail}`}>{contact_mail}</Link>
                                        </li>
-                                       <li>
-                                          <span>
-                                            <LocationIcon /> 
-                                          </span>
-                                          <Link href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z"
-                                             target="_blank">{location}</Link>
-                                       </li>
+                                 
                                     </ul>
                                  </div>
                               </div>

@@ -93,7 +93,7 @@ const Header = () => {
                                  </Link>
                               </div>
                               <div className="header-bottom__btn d-flex align-items-center">
-                                 <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/service-details">
+                                 <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/register">
                                     <span className="white-text">Get Started</span>
                                     <b></b>
                                  </Link>

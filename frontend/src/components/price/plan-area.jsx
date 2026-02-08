@@ -127,7 +127,7 @@ const PlanArea = () => {
                                         <li key={i}>
                                             <div className={`pr-feature-item ${item.cls}`}>
                                                 <h5>{item.title}</h5>
-                                                <Link className="tp-btn-service black-bg text-white" href="/service-details">
+                                                <Link className="tp-btn-service black-bg text-white" href="/register">
                                                     {item.btn_text}
                                                 </Link>
                                             </div>

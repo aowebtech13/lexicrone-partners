@@ -29,8 +29,8 @@ const rank_data = [
         count: 1,
         img: img_1,
         // clg_3: "",
-        domain: "amazon.com",
-        visitors: "2.4B Visits",
+        domain: "Leximan",
+        visitors: "97% wins",
 
     },
     {
@@ -41,8 +41,8 @@ const rank_data = [
         count: 2,
         img: img_2,
         // clg_3: "",
-        domain: "ebay.com",
-        visitors: "700.2M Visits",
+        domain: "Mr Roy",
+        visitors: "93% wins",
 
     },
     {
@@ -53,8 +53,8 @@ const rank_data = [
         count: 3,
         img: img_3,
         // clg_3: "",
-        domain: "walmart.com",
-        visitors: "489.6M Visits",
+        domain: "Xman",
+        visitors: "91% wins",
 
     },
     {
@@ -65,8 +65,8 @@ const rank_data = [
         count: 4,
         img: img_4,
         // clg_3: "",
-        domain: "shopify.com",
-        visitors: "386.6M Visits",
+        domain: "Doveman",
+        visitors: "90% wins",
 
     },
 ]
@@ -119,7 +119,7 @@ const circle_shape  = [
 
 const rank_content = {
     sub_title: "Key Benefits",
-    title: <>Get more Sales <br /> by Improving <br /> Results</>,
+    title: <>Let our top traders <br /> trade for you <br /> </>,
     btn_text: "Explore More",
     
 }
@@ -127,7 +127,7 @@ const {sub_title, title, btn_text}  = rank_content
 const RankArea = () => {
     return (
         <>
-            <div className="tp-rank__area pb-200">
+            <div className="tp-rank__area pt-100 pb-100">
                <div className="container">
                   <div className="row">
                      <div className="col-xl-5 col-lg-5 order-1 order-lg-1">
@@ -136,7 +136,7 @@ const RankArea = () => {
                            <h3 className="tp-section-title">{title}</h3>
                         </div>
                         <div className="tp-rank__btn wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
-                           <Link className="tp-btn tp-btn-hover alt-color-black" href="/service-details">
+                           <Link className="tp-btn tp-btn-hover alt-color-black" href="/register">
                               <span>{btn_text}</span>
                               <b></b>
                            </Link>

@@ -80,7 +80,7 @@ const CardArea = ({style_service}) => {
                            <h3 className="tp-section-title-3 pb-15">{title}</h3>
                            <p className="">{description}</p>
                               <Link className={`${style_service ? "tp-btn-inner" : "tp-btn-blue-lg"} tp-btn-hover alt-color-black`} 
-                                 href="/service-details">
+                                 href="/register">
                                  <span>{btn_text}</span> 
                                  <b></b>
                               </Link>

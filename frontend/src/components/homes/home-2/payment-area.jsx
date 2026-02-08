@@ -139,7 +139,7 @@ const PaymentArea = () => {
                                  <div className="tp-payment__content tp-payment__content-space">
                                     <h3 className="tp-payment__title">{box_3_title}</h3>
                                     <p>{box_3_des}</p>
-                                    <Link href="/service-details">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
+                                    <Link href="/register">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
                                  </div>
                               </div>
                               <div className="col-md-6">
