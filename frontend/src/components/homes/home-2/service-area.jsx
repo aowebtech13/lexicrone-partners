@@ -12,7 +12,7 @@ import bg_img from "../../../../public/assets/img/service/sv-bg-2-1.jpg"
 
 const service_content = {
     title: <>We provide the <br /> best service for you</>,
-    des: <>We've got all your payments covered</>,
+    des: <>Here's what's happening with your finance today.</>,
 
     users_data: [
         {

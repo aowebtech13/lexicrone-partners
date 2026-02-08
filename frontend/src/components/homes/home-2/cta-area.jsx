@@ -15,22 +15,7 @@ const {bg_img, title, info, btn_text}  = cta_content
 const CtaArea = () => {
     return (
         <>
-             <div className="tp-cta-area p-relative">
-               <div className="tp-cta-grey-bg grey-bg-2"></div>
-               <div className="container">
-                  <div className="row">
-                     <div className="col-12">
-                        <div className="tp-cta-bg" style={{backgroundImage: `url(${bg_img})`}}>
-                           <div className="tp-cta-content text-center">
-                              <h3 className="tp-section-title-lg text-white">{title}</h3>
-                              <p>{info}</p>
-                              <Link className="tp-btn-green" href="/register">{btn_text}</Link>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
+            
         </>
     );
 };

@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 // shape import here
 import shape_1 from "../../../public/assets/img/login/login-shape-1.png";
-import shape_2 from "../../../public/assets/img/login/login-2.png";
+
 import shape_3 from "../../../public/assets/img/login/login-1.png";
 import shape_4 from "../../../public/assets/img/login/login-3.png";
 import shape_5 from "../../../public/assets/img/login/login-4.png";
@@ -37,9 +37,7 @@ const RegisterArea = () => {
                            <h4 className="signin-banner-title tp-char-animation">{banner_title}</h4>
                         </div>
                         <div className="signin-banner-img-box position-relative">
-                           <div className="signin-banner-img signin-img-1 d-none d-md-block z-index-3">
-                              <Image src={shape_2} alt="theme-pure"/>
-                           </div>
+                           
                            <div className="signin-banner-img signin-img-2 d-none d-md-block">
                               <Image src={shape_3} alt="theme-pure"/>
                            </div>
