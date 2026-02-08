@@ -30,3 +30,5 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
         return response()->json(['message' => 'Test email sent successfully.']);
     });
 });
+
+require __DIR__.'/auth.php';

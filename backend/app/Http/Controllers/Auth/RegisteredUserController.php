@@ -37,7 +37,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        if ($request->hasSession()) {
+            Auth::login($user);
+        }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

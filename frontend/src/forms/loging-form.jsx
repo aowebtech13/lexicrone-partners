@@ -14,7 +14,7 @@ const schema = yup
   .object({
     email: yup.string().required().email().label("Email"),
     password: yup.string().required().min(6).label("Password"),
-
+    remember: yup.boolean(),
   })
   .required();
 
@@ -27,19 +27,29 @@ const LogingForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      remember: false,
+    }
   });
 
   const onSubmit = async (data) =>{ 
     try {
       const response = await api.post('/login', data);
       if (response.data.access_token) {
-        Cookies.set('token', response.data.access_token, { expires: 7 });
+        // Set token in cookies. If remember is true, set it for 30 days, otherwise session
+        const cookieOptions = data.remember ? { expires: 30 } : {};
+        Cookies.set('token', response.data.access_token, cookieOptions);
+        
+        // Also save user info if needed
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
         toast.success("Login Successful!");
         router.push("/dashboard");
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Login failed. Please check your credentials.");
+      const errorMessage = error.response?.data?.message || "Login failed. Please check your credentials.";
+      toast.error(errorMessage);
     }
   };
 
@@ -105,8 +115,8 @@ const LogingForm = () => {
                   <input
                     className="form-check-input"
                     type="checkbox"
-                    value=""
                     id="flexCheckDefault"
+                    {...register("remember")}
                   />
                   <label
                     className="form-check-label"
