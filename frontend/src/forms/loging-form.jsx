@@ -5,6 +5,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import api from "../utils/api";
+import { toast } from "react-toastify";
 
 const schema = yup
   .object({
@@ -15,6 +19,7 @@ const schema = yup
   .required();
 
 const LogingForm = () => { 
+  const router = useRouter();
   const {
     register,
     handleSubmit, 
@@ -23,9 +28,19 @@ const LogingForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) =>{ 
-    console.log(data)
-    reset()
+
+  const onSubmit = async (data) =>{ 
+    try {
+      const response = await api.post('/login', data);
+      if (response.data.access_token) {
+        Cookies.set('token', response.data.access_token, { expires: 7 });
+        toast.success("Login Successful!");
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Login failed. Please check your credentials.");
+    }
   };
 
   // password show & hide
@@ -115,7 +130,7 @@ const LogingForm = () => {
           </button>
         </div>
         <div className="signin-banner-from-register">
-          <Link href="/sign-in">
+          <Link href="/register">
             Don't have account ? <span>Register</span>
           </Link>
         </div>

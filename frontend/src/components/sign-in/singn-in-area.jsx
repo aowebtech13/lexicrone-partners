@@ -38,9 +38,7 @@ const SingnInArea = () => {
                                     <h4 className="signin-banner-title tp-char-animation">{banner_title}</h4>
                                 </div>
                                 <div className="signin-banner-img-box position-relative">
-                                    <div className="signin-banner-img signin-img-1 d-none d-md-block z-index-3">
-                                    <Image src={shape_2} alt="theme-pure"/>
-                                    </div>
+                                    
                                     <div className="signin-banner-img signin-img-2 d-none d-md-block">
                                     <Image src={shape_3} alt="theme-pure"/>
                                     </div>

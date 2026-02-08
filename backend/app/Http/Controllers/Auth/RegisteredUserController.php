@@ -21,15 +21,17 @@ class RegisteredUserController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'fullname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
+            'phone' => ['required', 'string', 'max:20'],
+            'password' => ['required', 'min:6'],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->fullname,
             'email' => $request->email,
-            'password' => Hash::make($request->string('password')),
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
             'role' => 'user', // Default role
         ]);
 

@@ -5,6 +5,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup"; 
 import Link from "next/link";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import api from "../utils/api";
+import { toast } from "react-toastify";
 
 
 const schema = yup
@@ -19,7 +23,7 @@ const schema = yup
 
 
 const RegisterForm = () => {
-
+  const router = useRouter();
   const {
     register,
     handleSubmit, reset,
@@ -27,9 +31,18 @@ const RegisterForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) =>{ 
-    console.log(data)
-    reset()
+  const onSubmit = async (data) =>{ 
+    try {
+      const response = await api.post('/register', data);
+      if (response.data.access_token) {
+        Cookies.set('token', response.data.access_token, { expires: 7 });
+        toast.success("Registration Successful!");
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Registration failed. Please try again.");
+    }
   };
 
   // password show & hide

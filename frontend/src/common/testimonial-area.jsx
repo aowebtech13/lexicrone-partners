@@ -1,7 +1,7 @@
 import testimonial_data from '@/src/data/testimonial-data';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { Navigation, Scrollbar } from 'swiper';
+import { Navigation, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const testimonial_content = {
