@@ -40,7 +40,7 @@ const  service_data = [
         id: 1,
         icon: img_1,
         img: img_1,
-        title: "AI Data Analysis",
+        title: "Lexicrone Trading",
         description: <>Lorem Ipsum is simply dummy text <br /> of the printing</>,
         delay: ".4s",
     },

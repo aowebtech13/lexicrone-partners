@@ -10,30 +10,30 @@ const price_data_home_one = [
     {
         id: 1, 
         img: pric_img_1,
-        title: "Personal Plan",
-        desctiption: <>Customized anything in anytime</>,
+        title: "Starter Plan",
+        desctiption: <>Begin your forex journey with stability</>,
         cls: "",
-        pric: "146.00",
+        pric: "500+",
         price_feature: [
             {
-                list: "Easy To Track AI Data",
+                list: "10% Weekly ROI",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "100+ Ready Boots",
+                list: "Minimum: $500",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "Best Data Plan & Package",
+                list: "Maximum: $5,000",
                 icon: <PriceList />,
-                cls: "inactive"
+                cls: ""
             },
             {
-                list: "24/7 Online Support",
+                list: "24/7 Expert Support",
                 icon: <PriceList />,
-                cls: "inactive"
+                cls: ""
             }
         ],
 
@@ -41,28 +41,28 @@ const price_data_home_one = [
     {
         id: 2, 
         img: pric_img_2,
-        title: "Advanced",
-        desctiption: <>Customized anything in anytime</>,
+        title: "Professional",
+        desctiption: <>Accelerate your wealth growth</>,
         cls: "active",
-        pric: "159.00",
+        pric: "5,000+",
         price_feature: [
             {
-                list: "Easy To Track AI Data",
+                list: "15% Weekly ROI",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "100+ Ready Boots",
+                list: "Minimum: $5,000",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "Best Data Plan & Package",
+                list: "Maximum: $20,000",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "24/7 Online Support",
+                list: "Priority Support",
                 icon: <PriceList />,
                 cls: ""
             }
@@ -72,28 +72,28 @@ const price_data_home_one = [
     {
         id: 3, 
         img: pric_img_3,
-        title: "Personal Plan",
-        desctiption: <>Customized anything in anytime</>,
+        title: "Enterprise",
+        desctiption: <>Institutional grade investing</>,
         cls: "",
-        pric: "289.00",
+        pric: "20,000+",
         price_feature: [
             {
-                list: "Easy To Track AI Data",
+                list: "20% Weekly ROI",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "100+ Ready Boots",
+                list: "Minimum: $20,000",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "Best Data Plan & Package",
+                list: "Unlimited Max",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "24/7 Online Support",
+                list: "Personal Account Manager",
                 icon: <PriceList />,
                 cls: ""
             }
@@ -106,30 +106,30 @@ const price_data_home_one = [
     {
         id: 4, 
         img: pric_img_1,
-        title: "Personal Plan",
-        desctiption: <>Customized anything in anytime</>,
+        title: "Starter (Long-term)",
+        desctiption: <>Extended growth for new investors</>,
         cls: "",
-        pric: "99.00",
+        pric: "4,500/yr",
         price_feature: [
             {
-                list: "Easy To Track AI Data",
+                list: "12% Weekly ROI",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "100+ Ready Boots",
+                list: "Minimum: $500",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "Best Data Plan & Package",
+                list: "Maximum: $5,000",
                 icon: <PriceList />,
-                cls: "inactive"
+                cls: ""
             },
             {
-                list: "24/7 Online Support",
+                list: "24/7 Support",
                 icon: <PriceList />,
-                cls: "inactive"
+                cls: ""
             }
         ],
 
@@ -137,28 +137,28 @@ const price_data_home_one = [
     {
         id: 5, 
         img: pric_img_2,
-        title: "Advanced",
-        desctiption: <>Customized anything in anytime</>,
+        title: "Professional (Long-term)",
+        desctiption: <>Maximizing portfolio performance</>,
         cls: "active",
-        pric: "199.00",
+        pric: "45,000/yr",
         price_feature: [
             {
-                list: "Easy To Track AI Data",
+                list: "18% Weekly ROI",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "100+ Ready Boots",
+                list: "Minimum: $5,000",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "Best Data Plan & Package",
+                list: "Maximum: $20,000",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "24/7 Online Support",
+                list: "Priority Support",
                 icon: <PriceList />,
                 cls: ""
             }
@@ -168,28 +168,28 @@ const price_data_home_one = [
     {
         id: 6, 
         img: pric_img_3,
-        title: "Personal Plan",
-        desctiption: <>Customized anything in anytime</>,
+        title: "Enterprise (Long-term)",
+        desctiption: <>The ultimate investment tier</>,
         cls: "",
-        pric: "299.00",
+        pric: "180,000/yr",
         price_feature: [
             {
-                list: "Easy To Track AI Data",
+                list: "25% Weekly ROI",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "100+ Ready Boots",
+                list: "Minimum: $20,000",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "Best Data Plan & Package",
+                list: "Unlimited Max",
                 icon: <PriceList />,
                 cls: ""
             },
             {
-                list: "24/7 Online Support",
+                list: "VIP Concierge Service",
                 icon: <PriceList />,
                 cls: ""
             }

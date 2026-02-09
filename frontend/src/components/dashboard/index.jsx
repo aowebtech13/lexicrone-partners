@@ -23,7 +23,7 @@ const Dashboard = () => {
                         <DashboardArea />
                         <PaymentArea />
                         
-                        <ServiceArea />
+                     
                         <OpenAccountArea />
                 
                         <FaqArea />

@@ -27,7 +27,20 @@ class User extends Authenticatable
         'apple_id',
         'avatar',
         'role',
+        'balance',
+        'total_profit',
+        'total_invested',
     ];
+
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

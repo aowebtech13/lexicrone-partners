@@ -20,33 +20,51 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $request->validate([
-            'fullname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone' => ['required', 'string', 'max:20'],
-            'password' => ['required', 'min:6'],
-        ]);
+        try {
+            $request->validate([
+                'fullname' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+                'phone' => ['required', 'string', 'max:20'],
+                'password' => ['required', 'min:6'],
+            ]);
 
-        $user = User::create([
-            'name' => $request->fullname,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-            'role' => 'user', // Default role
-        ]);
+            $user = User::create([
+                'name' => $request->fullname,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'role' => 'user', // Default role
+                'balance' => 1000.00, // Welcome bonus for testing
+            ]);
 
-        event(new Registered($user));
+            event(new Registered($user));
 
-        if ($request->hasSession()) {
-            Auth::login($user);
+            // Create a welcome bonus transaction
+            \App\Models\Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'deposit',
+                'amount' => 1000.00,
+                'status' => 'completed',
+                'description' => 'Welcome Bonus',
+                'method' => 'System'
+            ]);
+
+            if ($request->hasSession()) {
+                Auth::login($user);
+            }
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'user' => $user,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Registration Error: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Registration failed: ' . $e->getMessage(),
+            ], 500);
         }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
     }
 }

@@ -1,121 +1,33 @@
 import NoticeTwo from '@/src/svg/notice-2';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import header_img from "../../../public/assets/img/price/price-4.1.png";
 import Image from 'next/image';
 import Link from 'next/link';
-
-const pricing_data_monthly = {
-   header_text: <>You pay <span>$59.00/mo</span> today Renews <br /> April  2024 For <span>$69.00/mo</span></>,
-   // price header data 
-   price_header: [
-      {
-         id: 1,
-         title: "STARTER",
-         description: <>Collect more submissions, <br /> access most of the features</>,
-         price: 18,
-         price_yearly: 36,
-         date: "Billed monthly",
-         active: "",
-      },
-      {
-         id: 2,
-         title: "Advance",
-         description: <>Collect more submissions, <br /> access most of the features</>,
-         price: 19,
-         price_yearly: 59,
-         date: "Billed monthly",
-         active: "active",
-      },
-      {
-         id: 3,
-         title: "Team Plan",
-         description: <>Collect more submissions, <br /> access most of the features</>,
-         price: 14,
-         price_yearly: 99,
-         date: "Billed monthly",
-         active: "",
-      },
-   ],
-
-   // price feature  
-   price_feature: [
-      {
-         id: 1,
-         title: "Team",
-         notice: <>Add gradient heading, button, pricing table testimonial etc.</>
-      },
-      {
-         id: 2,
-         title: "Installed Agent",
-         notice: <>Add gradient heading, button, pricing table testimonial etc.</>
-      },
-      {
-         id: 3,
-         title: "Real-Time Feedback",
-         notice: <>Add gradient heading, button, pricing table testimonial etc.</>
-      },
-      {
-         id: 4,
-         title: "Adding Time Manually",
-         notice: <>Add gradient heading, button, pricing table testimonial etc.</>
-      },
-      {
-         id: 5,
-         title: "Video Dedicated Support",
-         notice: <>Add gradient heading, button, pricing table testimonial etc.</>
-      },
-
-   ],
-
-   // price feature info
-   price_feature_info: [
-      {
-         id: 1,
-         active: "",
-         info: [
-            "02",
-            "12",
-            "Limited",
-            "100",
-            "Limited",
-         ]
-
-      },
-      {
-         id: 2,
-         active: "active",
-         info: [
-            "02",
-            "12",
-            "Limited",
-            "100",
-            "Limited",
-         ]
-
-      },
-      {
-         id: 3,
-         active: "",
-         info: [
-            "02",
-            "12",
-            "Limited",
-            "100",
-            "Limited",
-         ]
-
-      },
-   ]
-
-
-}
-const {  header_text, price_header, price_feature, price_feature_info } = pricing_data_monthly
-
-
-
+import api from '@/src/utils/api';
 
 const PriceArea = () => {
+   const [plans, setPlans] = useState([]);
+   const [loading, setLoading] = useState(true);
+
+   useEffect(() => {
+      const fetchPlans = async () => {
+         try {
+            const { data } = await api.get('investment-plans');
+            setPlans(data);
+         } catch (error) {
+            console.error("Error fetching plans:", error);
+         } finally {
+            setLoading(false);
+         }
+      };
+      fetchPlans();
+   }, []);
+
+   const header_text = <>Choose your <span>Investment Plan</span> and <br /> start growing your <span>wealth</span></>;
+
+   if (loading) return <div>Loading plans...</div>;
+
    return (
       <>
          <div className="tp-price-area mb-120">
@@ -139,119 +51,19 @@ const PriceArea = () => {
                                  </div>
                                  <div className="col-8">
                                     <div className="tp-price-top-wrapper">
-                                       {price_header.map((item, i) =>
-                                          <div key={i} className={`tp-price-top-item text-center ${item.active}`}>
+                                       {plans.map((item, i) =>
+                                          <div key={i} className={`tp-price-top-item text-center ${i === 1 ? 'active' : ''}`}>
                                              <div className="tp-price-top-tag-wrapper">
-                                                <span>{item.title}</span>
+                                                <span>{item.name}</span>
                                                 <p>{item.description}</p>
                                              </div>
                                              <div className="tp-price-top-title-wrapper">
-                                                <h4>${item.price} <span>/mo</span></h4>
-                                                <p>{item.date}</p>
-                                                <Link className="tp-btn-service" href="#">Get Started</Link>
+                                                <h4>{item.interest_rate}% <span>/{item.return_type}</span></h4>
+                                                <p>Min: ${item.min_amount}</p>
+                                                <p>Max: ${item.max_amount}</p>
+                                                <p>Duration: {item.duration_days} Days</p>
+                                                <Link className="tp-btn-service" href="/dashboard">Invest Now</Link>
                                              </div>
-                                          </div>
-                                       )}
-                                    </div>
-                                 </div>
-                              </div>
-                              <div className="tp-price-feature-wrapper">
-                                 <div className="row g-0">
-                                    <div className="col-4">
-                                       <div className="tp-price-feature-box">
-                                          {price_feature.map((item, i) =>
-                                             <div key={i} className="tp-price-feature-item p-relative">
-                                                <div className="d-flex align-items-center">
-                                                   <span>{item.title}</span>
-                                                   <div className="tp-price-feature-tooltip-box p-relative">
-                                                      <NoticeTwo />
-                                                      <div className="tp-price-feature-tooltip">
-                                                         <p>{item.notice}</p>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          )
-                                          }
-                                       </div>
-                                    </div>
-                                    <div className="col-8">
-                                       {price_feature_info.map((item, i) =>
-                                          <div key={i} className={`tp-price-feature-info-item ${item.active}`}>
-                                             {item?.info?.map((inf, i) =>
-                                                <div key={i} className="tp-price-feature-info text-center">
-                                                   <span>{inf}</span>
-                                                </div>
-                                             )}
-                                          </div>
-                                       )}
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-
-                     <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabIndex="0">
-                        <div className="tp-price-table price-inner-white-bg z-index-3">
-                           <div className="tp-price-table-wrapper">
-                              <div className="row g-0 align-items-center">
-                                 <div className="col-4">
-                                    <div className="tp-price-header">
-                                       <div className="tp-price-header-img">
-                                          <Image src={header_img} alt="theme-pure" />
-                                       </div>
-                                       <div className="tp-price-header-content">
-                                          <p>{header_text}</p>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div className="col-8">
-                                    <div className="tp-price-top-wrapper">
-                                       {price_header.map((item, i) =>
-                                          <div key={i} className={`tp-price-top-item text-center ${item.active}`}>
-                                             <div className="tp-price-top-tag-wrapper">
-                                                <span>{item.title}</span>
-                                                <p>{item.description}</p>
-                                             </div>
-                                             <div className="tp-price-top-title-wrapper">
-                                                <h4>${item.price_yearly} <span>/mo</span></h4>
-                                                <p>{item.date}</p>
-                                                <Link className="tp-btn-service" href="#">Get Started</Link>
-                                             </div>
-                                          </div>
-                                       )}
-                                    </div>
-                                 </div>
-                              </div>
-                              <div className="tp-price-feature-wrapper">
-                                 <div className="row g-0">
-                                    <div className="col-4">
-                                       <div className="tp-price-feature-box">
-                                          {price_feature.map((item, i) =>
-                                             <div key={i} className="tp-price-feature-item p-relative">
-                                                <div className="d-flex align-items-center">
-                                                   <span>{item.title}</span>
-                                                   <div className="tp-price-feature-tooltip-box p-relative">
-                                                      <NoticeTwo />
-                                                      <div className="tp-price-feature-tooltip">
-                                                         <p>{item.notice}</p>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          )
-                                          }
-                                       </div>
-                                    </div>
-                                    <div className="col-8">
-                                       {price_feature_info.map((item, i) =>
-                                          <div key={i} className={`tp-price-feature-info-item ${item.active}`}>
-                                             {item?.info?.map((inf, i) =>
-                                                <div key={i} className="tp-price-feature-info text-center">
-                                                   <span>{inf}</span>
-                                                </div>
-                                             )}
                                           </div>
                                        )}
                                     </div>

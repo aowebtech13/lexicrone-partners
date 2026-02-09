@@ -5,11 +5,19 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\PageDataController;
+use App\Http\Controllers\InvestmentController;
 
 Route::get('/services', [PageDataController::class, 'services']);
+Route::get('/investment-plans', [InvestmentController::class, 'getPlans']);
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+require __DIR__.'/auth.php';
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::get('/dashboard-data', [InvestmentController::class, 'getDashboardData']);
+    Route::post('/invest', [InvestmentController::class, 'invest']);
 });
 
 use App\Mail\AdminNotificationMail;
@@ -30,5 +38,3 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
         return response()->json(['message' => 'Test email sent successfully.']);
     });
 });
-
-require __DIR__.'/auth.php';

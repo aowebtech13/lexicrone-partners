@@ -15,20 +15,27 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
-        $request->authenticate();
+        try {
+            $request->authenticate();
 
-        if ($request->hasSession()) {
-            $request->session()->regenerate();
+            if ($request->hasSession()) {
+                $request->session()->regenerate();
+            }
+
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'user' => $user,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Login Error: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Login failed: ' . $e->getMessage(),
+            ], 500);
         }
-
-        $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
     }
 
     /**

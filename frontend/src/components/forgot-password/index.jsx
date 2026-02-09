@@ -1,16 +1,16 @@
 import FooterFive from "@/src/layout/footers/footer-5";
 import HeaderSix from "@/src/layout/headers/header-6";
 import React from "react";
-import RegisterArea from "./register-area";
+import ForgotPasswordArea from "./forgot-password-area";
 
-const Register = () => {
+const ForgotPassword = () => {
   return (
     <>
       <HeaderSix />
-      <RegisterArea />
+      <ForgotPasswordArea />
       <FooterFive style_contact={true} style_team={true} />
     </>
   );
 };
 
-export default Register;
+export default ForgotPassword;

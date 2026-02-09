@@ -6,12 +6,12 @@ const HeroForm = () => {
     <>
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="p-relative">
-          <input type="text" placeholder="Business email adress" />
+          <input type="number" placeholder=" Enter Phone Number" />
          {/* email icon */}
          <EmailIcon />
         </div>
         <button className="tp-btn tp-btn-hover alt-color-black">
-          <span>Become a Partner</span>
+          <span>Talk to an Agent</span>
           <b></b>
         </button>
       </form>

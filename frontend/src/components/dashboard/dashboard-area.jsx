@@ -1,18 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/src/context/AuthContext';
+import api from '@/src/utils/api';
+
+const TradingViewWidget = () => {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
+        script.async = true;
+        script.innerHTML = JSON.stringify({
+            "showChart": true,
+            "locale": "en",
+            "width": "100%",
+            "height": "400",
+            "largeChartUrl": "",
+            "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+            "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+            "gridLineColor": "rgba(240, 243, 250, 0)",
+            "scaleFontColor": "rgba(106, 109, 120, 1)",
+            "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+            "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+            "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+            "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",
+            "symbolActiveHandleBorderColor": "rgba(41, 98, 255, 1)",
+            "tabs": [
+                {
+                    "title": "Forex",
+                    "symbols": [
+                        { "s": "FX:EURUSD", "d": "EUR/USD" },
+                        { "s": "FX:GBPUSD", "d": "GBP/USD" },
+                        { "s": "FX:USDJPY", "d": "USD/JPY" },
+                        { "s": "FX:AUDUSD", "d": "AUD/USD" },
+                        { "s": "FX:USDCAD", "d": "USD/CAD" }
+                    ]
+                }
+            ]
+        });
+        const container = document.getElementById('tradingview-widget-container');
+        if (container) container.appendChild(script);
+    }, []);
+
+    return (
+        <div id="tradingview-widget-container" className="mb-40">
+            <div className="tradingview-widget-container__widget"></div>
+        </div>
+    );
+};
 
 const DashboardArea = () => {
+    const { user } = useAuth();
+    const [dashboardData, setDashboardData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            try {
+                const { data } = await api.get('dashboard-data');
+                setDashboardData(data);
+            } catch (error) {
+                console.error("Error fetching dashboard data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchDashboardData();
+    }, []);
+
+    if (loading) return <div>Loading dashboard...</div>;
+
     const stats = [
-        { id: 1, title: 'Total Balance', value: '$45,231.89', change: '+20.1%', icon: 'fa-wallet' },
-        { id: 2, title: 'Active Investments', value: '$12,450.00', change: '+5.4%', icon: 'fa-chart-line' },
-        { id: 3, title: 'Total Profit', value: '$8,234.12', change: '+12.5%', icon: 'fa-arrow-up-right-dots' },
-        { id: 4, title: 'Pending Deposits', value: '$1,200.00', change: '0%', icon: 'fa-clock' },
+        { id: 1, title: 'Total Balance', value: `$${dashboardData?.stats?.balance || '0.00'}`, icon: 'fa-wallet' },
+        { id: 2, title: 'Active Investments', value: `${dashboardData?.stats?.active_investments_count || 0}`, icon: 'fa-chart-line' },
+        { id: 3, title: 'Total Profit', value: `$${dashboardData?.stats?.total_profit || '0.00'}`, icon: 'fa-arrow-up-right-dots' },
+        { id: 4, title: 'Total Invested', value: `$${dashboardData?.stats?.total_invested || '0.00'}`, icon: 'fa-clock' },
     ];
 
-    const transactions = [
-        { id: 1, type: 'Deposit', amount: '+$500.00', date: '2023-10-25', status: 'Completed', method: 'Bank Transfer' },
-        { id: 2, type: 'Withdrawal', amount: '-$200.00', date: '2023-10-24', status: 'Pending', method: 'Bank Transfer' },
-        { id: 3, type: 'Profit', amount: '+$45.67', date: '2023-10-23', status: 'Completed', method: 'System' },
-    ];
+    const transactions = dashboardData?.recent_transactions || [];
 
     return (
         <>
@@ -21,9 +83,15 @@ const DashboardArea = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="section-title-wrapper mb-40">
-                                <h3 className="section-title">Welcome Back, User</h3>
+                                <h3 className="section-title">Welcome Back, {user?.name || 'User'}</h3>
                                 <p>Here's what's happening with your finance today.</p>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-12">
+                            <TradingViewWidget />
                         </div>
                     </div>
 
@@ -37,11 +105,6 @@ const DashboardArea = () => {
                                     <div className="tp-dashboard-card-content">
                                         <h4 className="tp-dashboard-card-title">{item.title}</h4>
                                         <div className="tp-dashboard-card-value">{item.value}</div>
-                                        <div className="tp-dashboard-card-change">
-                                            <span className={item.change.startsWith('+') ? 'text-success' : ''}>
-                                                {item.change}
-                                            </span> from last month
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -70,11 +133,11 @@ const DashboardArea = () => {
                                             {transactions.map((tr) => (
                                                 <tr key={tr.id}>
                                                     <td>{tr.type}</td>
-                                                    <td>{tr.amount}</td>
-                                                    <td>{tr.date}</td>
-                                                    <td>{tr.method}</td>
+                                                    <td>${Math.abs(tr.amount)}</td>
+                                                    <td>{new Date(tr.created_at).toLocaleDateString()}</td>
+                                                    <td>{tr.method || 'System'}</td>
                                                     <td>
-                                                        <span className={`badge ${tr.status === 'Completed' ? 'bg-success' : 'bg-warning'}`}>
+                                                        <span className={`badge ${tr.status === 'completed' ? 'bg-success' : 'bg-warning'}`}>
                                                             {tr.status}
                                                         </span>
                                                     </td>

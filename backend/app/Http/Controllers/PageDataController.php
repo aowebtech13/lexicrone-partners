@@ -11,7 +11,7 @@ class PageDataController extends Controller
         $services = [
             [
                 'id' => 1,
-                'title' => 'AI Data Analysis',
+                'title' => 'Lexicrone Trading',
                 'description' => 'Lorem Ipsum is simply dummy text of the printing',
                 'delay' => '.4s',
             ],

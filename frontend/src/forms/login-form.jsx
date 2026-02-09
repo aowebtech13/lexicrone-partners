@@ -6,8 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
-import api from "../utils/api";
+import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const schema = yup
@@ -18,8 +17,9 @@ const schema = yup
   })
   .required();
 
-const LogingForm = () => { 
+const LoginForm = () => { 
   const router = useRouter();
+  const { login } = useAuth();
   const {
     register,
     handleSubmit, 
@@ -34,21 +34,12 @@ const LogingForm = () => {
 
   const onSubmit = async (data) =>{ 
     try {
-      const response = await api.post('/login', data);
-      if (response.data.access_token) {
-        // Set token in cookies. If remember is true, set it for 30 days, otherwise session
-        const cookieOptions = data.remember ? { expires: 30 } : {};
-        Cookies.set('token', response.data.access_token, cookieOptions);
-        
-        // Also save user info if needed
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        
-        toast.success("Login Successful!");
-        router.push("/dashboard");
-      }
+      await login(data.email, data.password, data.remember);
+      toast.success("Login Successful!");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
-      const errorMessage = error.response?.data?.message || "Login failed. Please check your credentials.";
+      const errorMessage = error.response?.data?.message || error.message || "Login failed. Please check your credentials.";
       toast.error(errorMessage);
     }
   };
@@ -129,7 +120,7 @@ const LogingForm = () => {
             </div>
             <div className="col-6">
               <div className="postbox__forget text-end">
-                <Link href="#">Forgot password ?</Link>
+                <Link href="/forgot-password">Forgot password ?</Link>
               </div>
             </div>
           </div>
@@ -149,4 +140,4 @@ const LogingForm = () => {
   );
 };
 
-export default LogingForm;
+export default LoginForm;

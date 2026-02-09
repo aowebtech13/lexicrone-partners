@@ -6,8 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup"; 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
-import api from "../utils/api";
+import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 
@@ -24,6 +23,7 @@ const schema = yup
 
 const RegisterForm = () => {
   const router = useRouter();
+  const { register: registerUser } = useAuth();
   const {
     register,
     handleSubmit, reset,
@@ -36,21 +36,12 @@ const RegisterForm = () => {
   });
   const onSubmit = async (data) =>{ 
     try {
-      const response = await api.post('/register', data);
-      if (response.data.access_token) {
-        // Set token in cookies
-        const cookieOptions = data.remember ? { expires: 30 } : {};
-        Cookies.set('token', response.data.access_token, cookieOptions);
-        
-        // Also save user info
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-
-        toast.success("Registration Successful!");
-        router.push("/dashboard");
-      }
+      await registerUser(data);
+      toast.success("Registration Successful!");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
-      const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+      const errorMessage = error.response?.data?.message || error.message || "Registration failed. Please try again.";
       toast.error(errorMessage);
     }
   };
@@ -151,7 +142,7 @@ const RegisterForm = () => {
             </div>
             <div className="col-6">
               <div className="postbox__forget text-end">
-                <Link href="#">Forgot password ?</Link>
+                <Link href="/forgot-password">Forgot password ?</Link>
               </div>
             </div>
           </div>
