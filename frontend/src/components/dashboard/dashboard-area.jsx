@@ -154,7 +154,8 @@ const DashboardArea = () => {
                                 <h4 className="tp-dashboard-widget-title mb-30">Quick Actions</h4>
                                 <div className="tp-dashboard-actions d-grid gap-3">
                                     <Link href="/deposit" className="tp-btn w-100 text-center">Deposit Funds</Link>
-                                    <Link href="/transactions" className="tp-btn-blue w-100 text-center">Transaction History</Link>
+                                    <Link href="/withdraw" className="tp-btn-blue w-100 text-center">Withdraw Funds</Link>
+                                    <Link href="/transactions" className="tp-btn-inner w-100 text-center">Transaction History</Link>
                                     <Link href="/contact" className="tp-btn-inner w-100 text-center">Contact Support</Link>
                                 </div>
                             </div>

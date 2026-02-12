@@ -13,7 +13,7 @@ class InvestmentPlanSeeder extends Seeder
     public function run(): void
     {
         \App\Models\InvestmentPlan::create([
-            'name' => 'Starter Plan',
+            'name' => 'Leximan Team',
             'description' => 'Perfect for beginners starting their forex journey.',
             'min_amount' => 100,
             'max_amount' => 1000,

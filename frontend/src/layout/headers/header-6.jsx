@@ -55,7 +55,7 @@ const HeaderSix = ({ style_2 = false }) => {
                                  <b></b>
                               </Link>
                               <a className="header-bottom__bar tp-menu-bar d-lg-none" onClick={() => setSidebarOpen(true)}>
-                                 <i className="fal fa-bars"></i>
+                                 <i className="fa-solid fa-bars"></i>
                               </a>
                            </div>
                         </div>

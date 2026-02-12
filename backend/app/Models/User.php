@@ -30,7 +30,28 @@ class User extends Authenticatable
         'balance',
         'total_profit',
         'total_invested',
+        'withdrawal_date',
     ];
+
+    /**
+     * The attributes that should be appended to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['avatar_url'];
+
+    public function getAvatarUrlAttribute()
+    {
+        if (!$this->avatar) {
+            return null;
+        }
+
+        if (filter_var($this->avatar, FILTER_VALIDATE_URL)) {
+            return $this->avatar;
+        }
+
+        return asset('storage/' . $this->avatar);
+    }
 
     public function investments()
     {

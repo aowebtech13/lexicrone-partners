@@ -6,11 +6,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // account images
-import account_img_1 from "../../../../public/assets/img/account/account-bg.png"
-import account_img_2 from "../../../../public/assets/img/account/acc-main.png"
-import account_img_3 from "../../../../public/assets/img/account/ac-author.png"
-import account_img_4 from "../../../../public/assets/img/account/ac-shape-1.png"
-import account_img_5 from "../../../../public/assets/img/account/ac-shape-2.png"
+import account_img_1 from "@/public/assets/img/account/account-bg.png"
+import account_img_2 from "@/public/assets/img/account/acc-main.png"
+import account_img_3 from "@/public/assets/img/account/ac-author.png"
+import account_img_4 from "@/public/assets/img/account/ac-shape-1.png"
+import account_img_5 from "@/public/assets/img/account/ac-shape-2.png"
 
 const account_shape = [
     {

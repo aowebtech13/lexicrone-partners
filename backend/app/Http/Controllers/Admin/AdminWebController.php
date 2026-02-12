@@ -125,6 +125,88 @@ class AdminWebController extends Controller
         return view('admin.users', compact('users'));
     }
 
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'balance' => 'required|numeric|min:0',
+            'withdrawal_date' => 'nullable|date',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $oldBalance = $user->balance;
+        $newBalance = $request->balance;
+
+        DB::transaction(function () use ($user, $request, $oldBalance, $newBalance) {
+            $updateData = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'balance' => $request->balance,
+                'withdrawal_date' => $request->withdrawal_date,
+            ];
+
+            if ($request->hasFile('avatar')) {
+                // Delete old avatar if exists
+                if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                }
+
+                $path = $request->file('avatar')->store('avatars', 'public');
+                $updateData['avatar'] = $path;
+            }
+
+            $user->update($updateData);
+
+            if ($oldBalance != $newBalance) {
+                $diff = $newBalance - $oldBalance;
+                Transaction::create([
+                    'user_id' => $user->id,
+                    'type' => $diff > 0 ? 'admin_credit' : 'admin_debit',
+                    'amount' => $diff,
+                    'status' => 'completed',
+                    'description' => "Balance manually adjusted by administrator. (" . ($diff > 0 ? "+" : "") . "$diff)",
+                ]);
+            }
+        });
+
+        return back()->with('success', 'User details updated successfully.');
+    }
+
+    public function transactions()
+    {
+        $transactions = Transaction::with('user')->latest()->paginate(50);
+        return view('admin.transactions', compact('transactions'));
+    }
+
+    public function fundUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $request->validate([
+            'amount' => 'required|numeric',
+            'type' => 'required|in:credit,debit',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        $amount = $request->type === 'credit' ? $request->amount : -$request->amount;
+
+        DB::transaction(function () use ($user, $amount, $request) {
+            $user->increment('balance', $amount);
+            
+            Transaction::create([
+                'user_id' => $user->id,
+                'type' => $request->type === 'credit' ? 'admin_credit' : 'admin_debit',
+                'amount' => $amount,
+                'status' => 'completed',
+                'description' => $request->description ?? "Administrator " . ($request->type === 'credit' ? "credited" : "debited") . " your wallet.",
+            ]);
+        });
+
+        return back()->with('success', 'User wallet updated successfully.');
+    }
+
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);

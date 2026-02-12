@@ -9,6 +9,8 @@ use App\Http\Controllers\InvestmentController;
 
 use App\Http\Controllers\WithdrawalController;
 
+use App\Http\Controllers\Api\ProfileController;
+
 Route::get('/services', [PageDataController::class, 'services']);
 Route::get('/investment-plans', [InvestmentController::class, 'getPlans']);
 
@@ -24,6 +26,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
     Route::get('/withdrawals', [WithdrawalController::class, 'index']);
     Route::post('/withdraw', [WithdrawalController::class, 'store']);
+
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/profile', [ProfileController::class, 'update']);
 });
 
 use App\Mail\AdminNotificationMail;

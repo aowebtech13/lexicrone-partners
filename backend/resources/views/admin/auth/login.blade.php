@@ -14,9 +14,7 @@
         <div class="hidden lg:flex flex-col justify-between p-12 bg-primary text-primary-content relative overflow-hidden">
             <div class="relative z-10">
                 <div class="flex items-center gap-3 mb-12">
-                    <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-xl">
-                        <i class="fas fa-crown text-2xl"></i>
-                    </div>
+                    <img src="https://lexicrone.com/images/logo.png" alt="Lexicrone" class="h-12 w-auto">
                     <span class="text-3xl font-black tracking-tighter">Lexicrone</span>
                 </div>
                 <h1 class="text-5xl font-black mb-6 leading-tight">Master your financial <span class="text-secondary">ecosystem.</span></h1>

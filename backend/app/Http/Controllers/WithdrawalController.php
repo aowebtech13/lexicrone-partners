@@ -24,6 +24,12 @@ class WithdrawalController extends Controller
         ]);
 
         $user = Auth::user();
+        
+        if ($user->withdrawal_date && now()->lt($user->withdrawal_date)) {
+            return response()->json([
+                'message' => 'You are not eligible for withdrawal until ' . \Carbon\Carbon::parse($user->withdrawal_date)->format('M d, Y') . '.'
+            ], 422);
+        }
 
         if ($user->balance < $request->amount) {
             return response()->json(['message' => 'Insufficient balance.'], 422);

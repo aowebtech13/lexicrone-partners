@@ -27,8 +27,21 @@
                 @foreach($investments as $investment)
                 <tr class="hover:bg-base-200/30 transition-colors duration-200">
                     <td>
-                        <div class="font-black">{{ $investment->user->name }}</div>
-                        <div class="text-xs opacity-50">{{ $investment->user->email }}</div>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar">
+                                <div class="bg-neutral text-neutral-content rounded-xl w-10 h-10 overflow-hidden flex items-center justify-center">
+                                    @if($investment->user->avatar_url)
+                                        <img src="{{ $investment->user->avatar_url }}" alt="{{ $investment->user->name }}" class="object-cover w-full h-full" />
+                                    @else
+                                        <span class="text-xs font-black uppercase text-white">{{ substr($investment->user->name ?? 'U', 0, 1) }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div>
+                                <div class="font-black">{{ $investment->user->name }}</div>
+                                <div class="text-xs opacity-50">{{ $investment->user->email }}</div>
+                            </div>
+                        </div>
                     </td>
                     <td>
                         <div class="badge badge-outline badge-md font-bold mb-1">{{ $investment->plan->name }}</div>

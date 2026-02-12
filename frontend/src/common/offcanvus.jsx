@@ -13,7 +13,7 @@ const Offcanvus = ({sidebarOpen, setSidebarOpen}) => {
             <div className="tpoffcanvas-area">
                 <div className={`tpoffcanvas ${sidebarOpen && "opened"}`}>
                     <div className="tpoffcanvas__close-btn">
-                    <button className="close-btn" onClick={() => setSidebarOpen(false)}><i className="fal fa-times"></i></button>
+                    <button className="close-btn" onClick={() => setSidebarOpen(false)}><i className="fa-solid fa-xmark"></i></button>
                     </div>
                     <div className="tpoffcanvas__logo text-center">
                     <Link href="/" onClick={() => setSidebarOpen(false)}>
