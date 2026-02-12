@@ -84,4 +84,10 @@ class InvestmentController extends Controller
             'active_investments' => $user->investments()->where('status', 'active')->with('plan')->get(),
         ]);
     }
+
+    public function getTransactions()
+    {
+        $user = Auth::user();
+        return response()->json($user->transactions()->latest()->paginate(20));
+    }
 }

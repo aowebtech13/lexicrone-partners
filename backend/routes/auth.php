@@ -13,7 +13,7 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
     ->name('register');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->name('login');
+    ->name('api.login');
 
 Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirectToProvider'])
     ->name('social.redirect');

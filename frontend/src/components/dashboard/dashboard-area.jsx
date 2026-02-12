@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/src/context/AuthContext';
 import api from '@/src/utils/api';
+import Link from 'next/link';
 
 const TradingViewWidget = () => {
     useEffect(() => {
@@ -116,7 +117,7 @@ const DashboardArea = () => {
                             <div className="tp-dashboard-widget">
                                 <div className="tp-dashboard-widget-header d-flex align-items-center justify-content-between mb-30">
                                     <h4 className="tp-dashboard-widget-title">Recent Transactions</h4>
-                                    <button className="tp-btn-inner">View All</button>
+                                    <Link href="/transactions" className="tp-btn-inner">View All</Link>
                                 </div>
                                 <div className="tp-dashboard-table table-responsive">
                                     <table className="table">
@@ -152,9 +153,9 @@ const DashboardArea = () => {
                             <div className="tp-dashboard-widget">
                                 <h4 className="tp-dashboard-widget-title mb-30">Quick Actions</h4>
                                 <div className="tp-dashboard-actions d-grid gap-3">
-                                    <button className="tp-btn w-100">Deposit Funds</button>
-                                    <button className="tp-btn-blue w-100">Withdraw Funds</button>
-                                    <button className="tp-btn-inner w-100">Contact Support</button>
+                                    <Link href="/deposit" className="tp-btn w-100 text-center">Deposit Funds</Link>
+                                    <Link href="/transactions" className="tp-btn-blue w-100 text-center">Transaction History</Link>
+                                    <Link href="/contact" className="tp-btn-inner w-100 text-center">Contact Support</Link>
                                 </div>
                             </div>
                         </div>
