@@ -16,7 +16,7 @@
     &__link{
         & span{
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.1;
             color: var(--tp-common-black);
             margin-right: 5px;
@@ -44,7 +44,7 @@
     &__support{
         & span{
             font-weight: 400;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 10px;
             & a{
                 color: var(--tp-common-black);
@@ -223,7 +223,7 @@
                     padding: 0 5px 0 15px;
                     border-radius: 30px;
                     font-weight: 700;
-                    font-size: 14px;
+                    font-size: 16px;
                     color: var(--tp-common-white);
                     line-height: 0;
                     & svg {
@@ -370,7 +370,7 @@
                                 margin: 0;
                                 display: inline-block;
                                 text-transform: capitalizes;
-                                font-size: 14px;
+                                font-size: 16px;
                                 color: var(--tp-common-black);
                                 position: relative;
                                 // letter-spacing: 1px;
@@ -437,7 +437,7 @@
                     & a{
                         font-weight: 500;
                         font-size: 16px;
-                        line-height: 14px;
+                        line-height: 16px;
                         letter-spacing: 0.02em;
                         font-family: var(--tp-ff-urban);
                         color: var(--tp-common-black);
@@ -550,7 +550,7 @@
                     & a{
                         font-weight: 500;
                         font-size: 17px;
-                        line-height: 14px;
+                        line-height: 16px;
                         padding: 35px 0;
                         @media #{$lg}{
                             font-size: 16px;
@@ -742,7 +742,7 @@
                                 margin: 0;
                                 display: inline-block;
                                 text-transform: capitalizes;
-                                font-size: 14px;
+                                font-size: 16px;
                                 color: var(--tp-common-black);
                                 font-family: var(--tp-ff-mont);
                                 position: relative;
@@ -787,7 +787,7 @@
                         padding: 40px 0;
                         font-weight: 500;
                         font-size: 16px;
-                        line-height: 14px;
+                        line-height: 16px;
                         color: var(--tp-common-white);
                         font-family: var(--tp-ff-mont);
                         display: inline-block;

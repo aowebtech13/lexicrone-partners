@@ -8,7 +8,7 @@ const Register = () => {
     <>
       <HeaderSix />
       <RegisterArea />
-      <FooterFive style_contact={true} style_team={true} />
+     
     </>
   );
 };

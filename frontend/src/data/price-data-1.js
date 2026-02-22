@@ -103,37 +103,7 @@ const price_data_home_one = [
     
     
     //  yearly price here  4 to 6
-    {
-        id: 4, 
-        img: pric_img_1,
-        title: "Starter (Long-term)",
-        desctiption: <>Extended growth for new investors</>,
-        cls: "",
-        pric: "4,500/yr",
-        price_feature: [
-            {
-                list: "12% Weekly ROI",
-                icon: <PriceList />,
-                cls: ""
-            },
-            {
-                list: "Minimum: $500",
-                icon: <PriceList />,
-                cls: ""
-            },
-            {
-                list: "Maximum: $5,000",
-                icon: <PriceList />,
-                cls: ""
-            },
-            {
-                list: "24/7 Support",
-                icon: <PriceList />,
-                cls: ""
-            }
-        ],
-
-    }, 
+   
    
      
 ]

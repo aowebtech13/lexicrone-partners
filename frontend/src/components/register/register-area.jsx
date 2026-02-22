@@ -59,19 +59,11 @@ const RegisterArea = () => {
                             <div className="signin-banner-from d-flex justify-content-center align-items-center" style={{ flex: '1' }}>
                                 <div className="signin-banner-from-wrap">
                                     <div className="signin-banner-title-box">
-                                        <h4 className="signin-banner-from-title">Register Account</h4>
+                                        <h4 className="signin-banner-from-title">Register A Partner Account</h4>
                                     </div>
-                                    <div className="signin-banner-login-browser">
-                                        <Link href="#"> 
-                                            <GoogleIcon />
-                                            Continue with Google
-                                        </Link>
-                                        <Link href="#"> 
-                                            <AppleIcon />
-                                        </Link>
-                                    </div>
+                                   
                                     <div className="signin-banner-from-box">
-                                        <h5 className="signin-banner-from-subtitle">Or Register with email</h5>
+                                        <h5 className="signin-banner-from-subtitle">Please Read all terms and conditions</h5>
                                         <RegisterForm />  
                                     </div>
                                     <div className="signin-banner-from-register mt-20">

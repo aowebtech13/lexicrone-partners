@@ -169,8 +169,8 @@
         }
         & p{
             font-weight: 500;
-            font-size: 14px;
-            line-height: 14px;
+            font-size: 16px;
+            line-height: 16px;
             @media #{$xs}{
                 font-size: 10px;
             }
@@ -325,7 +325,7 @@
                 }
                 &::after{
                     position: absolute;
-                    top: 14px;
+                    top: 16px;
                     left: 0;
                     height: 4px;
                     width: 4px;
@@ -466,7 +466,7 @@
         & a{
             font-weight: 600;
             font-size: 16px;
-            line-height: 14px;
+            line-height: 16px;
             color: var(--tp-common-black);
             font-family: var(--tp-ff-urban);
             transition: .3s;

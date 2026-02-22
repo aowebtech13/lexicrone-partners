@@ -1,86 +1,106 @@
 import LinearGradientLine from '@/src/svg/linear-gradient-line';
 import Link from 'next/link';
 import Image from 'next/image';
-import React from 'react';
-
-// service img import 
-import service_img_1 from "../../../../public/assets/img/service/sv-icon-2-1.png"
-import service_img_2 from "../../../../public/assets/img/service/sv-icon-2-2.png"
-import service_img_3 from "../../../../public/assets/img/service/sv-icon-2-3.png"
-import service_img_4 from "../../../../public/assets/img/service/sv-icon-2-4.png"
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/src/context/AuthContext';
+import api from '@/src/utils/api';
 import bg_img from "../../../../public/assets/img/service/sv-bg-2-1.jpg" 
 
 const service_content = {
-    title: <>We provide the <br /> best service for you</>,
-    des: <>Here's what's happening with your finance today.</>,
+    title: <>Your Investment <br /> Performance Today</>,
+    des: <>Real-time metrics of your portfolio and earnings.</>,
+}
+const {title, des}  = service_content 
 
-    users_data: [
+const ServiceArea = () => {
+    const { isAuthenticated } = useAuth();
+    const [dashboardData, setDashboardData] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchDashboardData();
+        }
+    }, [isAuthenticated]);
+
+    const fetchDashboardData = async () => {
+        setLoading(true);
+        try {
+            const { data } = await api.get('dashboard-data');
+            setDashboardData(data);
+        } catch (error) {
+            console.error("Error fetching dashboard data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const formatCurrency = (value) => {
+        if (value >= 1000000) {
+            return (value / 1000000).toFixed(1) + 'm';
+        } else if (value >= 1000) {
+            return (value / 1000).toFixed(1) + 'k';
+        }
+        return value.toFixed(0);
+    };
+
+    const metricsData = isAuthenticated && dashboardData ? [
         {
             id: 1, 
-            users_count: <>3.5<i>m</i></>,
-            users_status: <>Active Users</>,
-
+            users_count: <>${formatCurrency(dashboardData.stats.balance)}</>,
+            users_status: <>Total Balance</>,
         },
         {
             id: 2, 
-            users_count: <>240<i>+</i></>,
-            users_status: <>Trusted Companies</>,
-
+            users_count: <>{dashboardData.stats.active_investments_count}<i>+</i></>,
+            users_status: <>Active Investments</>,
         },
         {
             id: 3, 
-            users_count: <>78<i>k</i></>,
-            users_status: <>Customer care</>,
-
+            users_count: <>${formatCurrency(dashboardData.stats.total_profit)}</>,
+            users_status: <>Total Profit</>,
         },
-    ],
-    service_data: [
+    ] : [];
+
+    const investmentMetrics = isAuthenticated && dashboardData ? [
         {
             id: 1,
-            color: "",
-            title: "Online",
-            img: service_img_1,
+            icon: 'fa-wallet',
+            title: 'Total Invested',
+            value: `$${formatCurrency(dashboardData.stats.total_invested)}`,
+            description: 'Capital deployed',
+            color: 'success'
         },
         {
             id: 2,
-            color: "2",
-            title: "Bank Transfers",
-            img: service_img_2,
+            icon: 'fa-chart-line',
+            title: 'Active Investments',
+            value: dashboardData.stats.active_investments_count,
+            description: 'Running investments',
+            color: 'primary'
         },
         {
             id: 3,
-            color: "3",
-            title: "Keyed",
-            img: service_img_3,
+            icon: 'fa-piggy-bank',
+            title: 'Profit Earned',
+            value: `$${formatCurrency(dashboardData.stats.total_profit)}`,
+            description: 'Total returns',
+            color: 'warning'
         },
         {
             id: 4,
-            color: "4",
-            title: "In-Person",
-            img: service_img_4,
-        }, 
-    ],
+            icon: 'fa-coins',
+            title: 'Available Balance',
+            value: `$${formatCurrency(dashboardData.stats.balance)}`,
+            description: 'Ready to invest',
+            color: 'info'
+        }
+    ] : [];
 
-    free_tools_title: "More free tools than you can handle",
-    free_tools: [
-        <>Invoicing</>,
-        <>Online Checkout</>,
-        <>Point-of-Sale</>,
-        <>Online Food Ordering</>,
-        <>ICard Vault</>,
-        <>Customer Portal</>,
-        <>Inventory</>,
-        <>Virtual Terminal</>,
-        <>Recurring Plans</>,
-        <>Payment Links</>,
-        <>SMS Payments</>,
-        <>QR Codes</>,
-    ]
+    if (!isAuthenticated) {
+        return null;
+    }
 
-}
-const {title, des, users_data, service_data , free_tools_title, free_tools}  = service_content 
-
-const ServiceArea = () => {
     return (
         <>
             <div className="tp-service-2__area p-relative pt-70 pb-160">
@@ -100,54 +120,60 @@ const ServiceArea = () => {
                            <div className="tp-service-2__user-shape"> 
                                 <LinearGradientLine />
                            </div>
-                           {users_data.map((item, i)  => 
-                                <div key={i} className="tp-service-2__user">
-                                    <span>{item.users_count}</span>
-                                    <p>{item.users_status}</p>
-                                </div>
-                            )} 
+                           {loading ? (
+                               <div className="text-center">
+                                   <div className="spinner-border spinner-border-sm text-primary" role="status">
+                                       <span className="visually-hidden">Loading...</span>
+                                   </div>
+                               </div>
+                           ) : (
+                               metricsData.map((item, i)  => 
+                                    <div key={i} className="tp-service-2__user">
+                                        <span>{item.users_count}</span>
+                                        <p>{item.users_status}</p>
+                                    </div>
+                                )
+                           )}
                         </div>
                      </div>
                   </div>
+
                   <div className="row gx-60">
-
-                    {service_data.map((item, i)  => 
-                        <div key={i} className="col-xl-3 col-lg-3 col-md-6 mb-40 wow tpfadeUp" 
-                        data-wow-duration=".9s" data-wow-delay=".8s">
-                        <div className="tp-service-2__item-wrapper p-relative">
-                           <div className="tp-service-2__item d-flex justify-content-between flex-column">
-                              <div className="tp-service-2__icon">
-                                 <Image src={item.img} alt="theme-pure" />
-                              </div>
-                              <div className="tp-service-2__text">
-                                 <h4 className="tp-service-2__title-sm"><Link href="/register">{item.title}</Link></h4>
-                                 <Link className="tp-service-2__link" href="/register">Explore
-                                    <i className="far fa-arrow-right"></i>
-                                 </Link>
-                              </div>
-                           </div>
-                           <div className={`tp-service-2__bg-shape tp-service-2__color-${item.color}`}></div>
+                    {loading ? (
+                        <div className="col-12 text-center py-5">
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
                         </div>
-                     </div>
-                        
+                    ) : (
+                        investmentMetrics.map((item, i)  => 
+                            <div key={i} className="col-xl-3 col-lg-3 col-md-6 mb-40 wow tpfadeUp" 
+                            data-wow-duration=".9s" data-wow-delay=".8s">
+                            <div className="tp-service-2__item-wrapper p-relative">
+                               <div className="tp-service-2__item d-flex justify-content-between flex-column">
+                                  <div className="tp-service-2__icon">
+                                     <i className={`fas ${item.icon} fa-2x text-${item.color}`}></i>
+                                  </div>
+                                  <div className="tp-service-2__text">
+                                     <h4 className="tp-service-2__title-sm">{item.title}</h4>
+                                     <p className="mb-2 fw-bold" style={{fontSize: '18px'}}>{item.value}</p>
+                                     <small className="text-muted">{item.description}</small>
+                                  </div>
+                               </div>
+                               <div className={`tp-service-2__bg-shape tp-service-2__color-${i}`}></div>
+                            </div>
+                         </div>
                         )
-                    } 
-
+                    )}
                   </div>
 
-                  <div className="row justify-content-center">
-                     <div className="col-xl-10 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".9s">
-                        <div className="tp-service-2__bottom-wrapper p-relative mt-110">
-                           <div className="tp-service-2__feature-item">
-                              <h4 className="tp-service-2__feature-title">{free_tools_title}</h4>
-                              <div className="tp-service-2__feature-box d-flex justify-content-between">
-                                 <div className="tp-service-2__feature-list">
-                                    <ul>
-                                        {free_tools.map((list, i)  => <li key={i}>{list}</li> )}
-                                    </ul>
-                                 </div>
-                              </div>
-                           </div>
+                  <div className="row justify-content-center mt-10">
+                     <div className="col-lg-6">
+                        <div className="text-center">
+                           <Link href="/dashboard" className="tp-btn-white tp-btn-hover alt-color-black">
+                              <span className="white-text">View Full Dashboard</span>
+                              <b></b>
+                           </Link>
                         </div>
                      </div>
                   </div>

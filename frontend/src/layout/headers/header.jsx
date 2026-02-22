@@ -8,6 +8,7 @@ import UserIcon from '@/src/svg/user-icon';
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 import NavMenu from './nav-menu';
 import useSticky from '@/src/hooks/use-sticky';
+import { useAuth } from '@/src/context/AuthContext';
 
 
 
@@ -18,6 +19,7 @@ import logo from "../../../public/assets/img/logo/logo-white.png"
 const Header = () => {
 
       const {sticky}  =  useSticky()
+      const { isAuthenticated, logout } = useAuth()
       const [searchOpen, setSearchOpen] = useState(false)
       const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -87,16 +89,33 @@ const Header = () => {
                                     onClick={() => setSearchOpen(true)} > 
                                     <SearchIconTwo />
                                  </a>
-                                 <Link className="d-none d-lg-inline-block last-child" href="/register">
-                                    <UserIcon /> 
-                                    <span>Log In</span>
-                                 </Link>
+                                 {isAuthenticated ? (
+                                    <>
+                                       <Link className="d-none d-lg-inline-block last-child" href="/dashboard">
+                                          <UserIcon /> 
+                                          <span>Dashboard</span>
+                                       </Link>
+                                       <a className="d-none d-lg-inline-block last-child ms-3" 
+                                          style={{cursor: 'pointer'}}
+                                          onClick={() => logout()}>
+                                          <UserIcon /> 
+                                          <span>Logout</span>
+                                       </a>
+                                    </>
+                                 ) : (
+                                    <Link className="d-none d-lg-inline-block last-child" href="/sign-in">
+                                       <UserIcon /> 
+                                       <span>Log In</span>
+                                    </Link>
+                                 )}
                               </div>
                               <div className="header-bottom__btn d-flex align-items-center">
-                                 <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/register">
-                                    <span className="white-text">Get Started</span>
-                                    <b></b>
-                                 </Link>
+                                 {!isAuthenticated && (
+                                    <Link className="tp-btn-white tp-btn-hover alt-color-black d-none d-md-inline-block" href="/register">
+                                       <span className="white-text">Get Started</span>
+                                       <b></b>
+                                    </Link>
+                                 )}
                                  <a className="header-bottom__bar d-lg-none tp-menu-bar" onClick={() => setSidebarOpen(true)}><i className="fal fa-bars"></i></a>
                               </div>
                            </div>

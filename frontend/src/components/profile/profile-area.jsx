@@ -11,6 +11,20 @@ const ProfileArea = () => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState(null);
     const fileInputRef = useRef(null);
+    
+    const [showPasswordForm, setShowPasswordForm] = useState(false);
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordUpdating, setPasswordUpdating] = useState(false);
+    
+    const [showWithdrawalForm, setShowWithdrawalForm] = useState(false);
+    const [bankName, setBankName] = useState('');
+    const [bankAccountHolder, setBankAccountHolder] = useState('');
+    const [bankAccountNumber, setBankAccountNumber] = useState('');
+    const [bankRoutingNumber, setBankRoutingNumber] = useState('');
+    const [accountType, setAccountType] = useState('checking');
+    const [withdrawalUpdating, setWithdrawalUpdating] = useState(false);
 
     const fetchProfile = async () => {
         try {
@@ -18,6 +32,11 @@ const ProfileArea = () => {
             setUser(data.user);
             setName(data.user.name);
             setPhone(data.user.phone || '');
+            setBankName(data.user.bank_name || '');
+            setBankAccountHolder(data.user.bank_account_holder || '');
+            setBankAccountNumber(data.user.bank_account_number || '');
+            setBankRoutingNumber(data.user.bank_routing_number || '');
+            setAccountType(data.user.account_type || 'checking');
             if (data.user.avatar_url) {
                 setAvatarPreview(data.user.avatar_url);
             }
@@ -69,6 +88,55 @@ const ProfileArea = () => {
             toast.error(error.response?.data?.message || "Failed to update profile");
         } finally {
             setUpdating(false);
+        }
+    };
+
+    const handlePasswordSubmit = async (e) => {
+        e.preventDefault();
+        if (newPassword !== confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+        
+        setPasswordUpdating(true);
+        try {
+            await api.post('profile/password', {
+                current_password: currentPassword,
+                password: newPassword,
+                password_confirmation: confirmPassword,
+            });
+            toast.success("Password updated successfully!");
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+            setShowPasswordForm(false);
+        } catch (error) {
+            console.error("Error updating password:", error);
+            toast.error(error.response?.data?.message || "Failed to update password");
+        } finally {
+            setPasswordUpdating(false);
+        }
+    };
+
+    const handleWithdrawalSubmit = async (e) => {
+        e.preventDefault();
+        setWithdrawalUpdating(true);
+        try {
+            const { data } = await api.post('profile/withdrawal-details', {
+                bank_name: bankName,
+                bank_account_holder: bankAccountHolder,
+                bank_account_number: bankAccountNumber,
+                bank_routing_number: bankRoutingNumber,
+                account_type: accountType,
+            });
+            setUser(data.user);
+            toast.success("Withdrawal details updated successfully!");
+            setShowWithdrawalForm(false);
+        } catch (error) {
+            console.error("Error updating withdrawal details:", error);
+            toast.error(error.response?.data?.message || "Failed to update withdrawal details");
+        } finally {
+            setWithdrawalUpdating(false);
         }
     };
 
@@ -276,9 +344,12 @@ const ProfileArea = () => {
                                         </div>
                                         <h6 className="fw-bold text-dark mb-1">Security Settings</h6>
                                         <p className="text-muted small mb-3">Manage your password and 2FA authentication.</p>
-                                        <a href="#" className="text-primary text-decoration-none small fw-bold d-flex align-items-center gap-1">
-                                            Update Security <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px' }}></i>
-                                        </a>
+                                        <button 
+                                            onClick={() => setShowPasswordForm(!showPasswordForm)}
+                                            className="btn btn-link text-primary text-decoration-none small fw-bold p-0 d-flex align-items-center gap-1"
+                                        >
+                                            {showPasswordForm ? 'Close' : 'Update Security'} <i className="fa-solid fa-chevron-right" style={{ fontSize: '10px' }}></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -297,6 +368,277 @@ const ProfileArea = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Password Change Form */}
+                {showPasswordForm && (
+                    <div className="col-lg-8 mt-4">
+                        <div className="card border-0 shadow-sm rounded-4">
+                            <div className="card-body p-4 p-md-5">
+                                <div className="d-flex align-items-center gap-3 mb-4">
+                                    <div className="bg-warning-subtle rounded-3 d-flex align-items-center justify-content-center text-warning shadow-sm" style={{ width: '56px', height: '56px' }}>
+                                        <i className="fa-solid fa-key fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 className="fw-bold text-dark mb-0">Change Password</h4>
+                                        <p className="text-muted small mb-0">Update your account password</p>
+                                    </div>
+                                </div>
+
+                                <form onSubmit={handlePasswordSubmit}>
+                                    <div className="mb-4">
+                                        <label className="form-label fw-bold text-dark small ms-1">Current Password</label>
+                                        <div className="input-group">
+                                            <span className="input-group-text bg-light border-0 px-3">
+                                                <i className="fa-solid fa-lock text-muted small"></i>
+                                            </span>
+                                            <input 
+                                                type="password" 
+                                                value={currentPassword}
+                                                onChange={(e) => setCurrentPassword(e.target.value)}
+                                                className="form-control bg-light border-0 py-2 py-md-3" 
+                                                placeholder="Enter your current password"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label className="form-label fw-bold text-dark small ms-1">New Password</label>
+                                        <div className="input-group">
+                                            <span className="input-group-text bg-light border-0 px-3">
+                                                <i className="fa-solid fa-lock text-muted small"></i>
+                                            </span>
+                                            <input 
+                                                type="password" 
+                                                value={newPassword}
+                                                onChange={(e) => setNewPassword(e.target.value)}
+                                                className="form-control bg-light border-0 py-2 py-md-3" 
+                                                placeholder="Enter your new password"
+                                                required
+                                                minLength="8"
+                                            />
+                                        </div>
+                                        <p className="text-muted italic small mt-2 ms-1" style={{ fontSize: '11px' }}>
+                                            Password must be at least 8 characters long.
+                                        </p>
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <label className="form-label fw-bold text-dark small ms-1">Confirm Password</label>
+                                        <div className="input-group">
+                                            <span className="input-group-text bg-light border-0 px-3">
+                                                <i className="fa-solid fa-lock text-muted small"></i>
+                                            </span>
+                                            <input 
+                                                type="password" 
+                                                value={confirmPassword}
+                                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                                className="form-control bg-light border-0 py-2 py-md-3" 
+                                                placeholder="Confirm your new password"
+                                                required
+                                                minLength="8"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="d-flex flex-column flex-sm-row align-items-center gap-3 pt-4 border-top">
+                                        <button 
+                                            type="submit" 
+                                            disabled={passwordUpdating}
+                                            className="btn btn-warning px-5 py-3 rounded-3 fw-bold shadow-sm d-flex align-items-center gap-2"
+                                        >
+                                            {passwordUpdating ? (
+                                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            ) : (
+                                                <>
+                                                    Update Password
+                                                    <i className="fa-solid fa-circle-check"></i>
+                                                </>
+                                            )}
+                                        </button>
+                                        
+                                        <button 
+                                            type="button"
+                                            onClick={() => {
+                                                setShowPasswordForm(false);
+                                                setCurrentPassword('');
+                                                setNewPassword('');
+                                                setConfirmPassword('');
+                                            }}
+                                            className="btn btn-light px-4 py-3 rounded-3 fw-bold"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Withdrawal Details Form */}
+                <div className="col-lg-8 mt-4">
+                    <div className="card border-0 shadow-sm rounded-4">
+                        <div className="card-body p-4 p-md-5">
+                            <div className="d-flex align-items-center gap-3 mb-4">
+                                <div className="bg-info-subtle rounded-3 d-flex align-items-center justify-content-center text-info shadow-sm" style={{ width: '56px', height: '56px' }}>
+                                    <i className="fa-solid fa-bank fs-4"></i>
+                                </div>
+                                <div>
+                                    <h4 className="fw-bold text-dark mb-0">Withdrawal Details</h4>
+                                    <p className="text-muted small mb-0">Add or update your bank account information</p>
+                                </div>
+                            </div>
+
+                            {!showWithdrawalForm ? (
+                                <div>
+                                    {bankAccountNumber ? (
+                                        <div className="p-4 bg-info-subtle rounded-3 mb-4">
+                                            <div className="row g-3">
+                                                <div className="col-md-6">
+                                                    <small className="text-muted fw-bold d-block mb-1">Bank Name</small>
+                                                    <p className="mb-0 fw-bold text-dark">{bankName}</p>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <small className="text-muted fw-bold d-block mb-1">Account Type</small>
+                                                    <p className="mb-0 fw-bold text-dark text-capitalize">{accountType}</p>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <small className="text-muted fw-bold d-block mb-1">Account Holder</small>
+                                                    <p className="mb-0 fw-bold text-dark">{bankAccountHolder}</p>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <small className="text-muted fw-bold d-block mb-1">Account Number</small>
+                                                    <p className="mb-0 fw-bold text-dark">****{bankAccountNumber.slice(-4)}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="p-4 bg-light rounded-3 text-center mb-4">
+                                            <i className="fa-solid fa-exclamation-circle text-warning fs-5 mb-2 d-block"></i>
+                                            <p className="text-muted small">No withdrawal details added yet</p>
+                                        </div>
+                                    )}
+                                    <button 
+                                        onClick={() => setShowWithdrawalForm(true)}
+                                        className="btn btn-info px-5 py-3 rounded-3 fw-bold"
+                                    >
+                                        {bankAccountNumber ? 'Edit Details' : 'Add Details'}
+                                    </button>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleWithdrawalSubmit}>
+                                    <div className="row g-4 mb-4">
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-bold text-dark small ms-1">Bank Name</label>
+                                            <div className="input-group">
+                                                <span className="input-group-text bg-light border-0 px-3">
+                                                    <i className="fa-solid fa-building text-muted small"></i>
+                                                </span>
+                                                <input 
+                                                    type="text" 
+                                                    value={bankName}
+                                                    onChange={(e) => setBankName(e.target.value)}
+                                                    className="form-control bg-light border-0 py-2 py-md-3" 
+                                                    placeholder="e.g., Wells Fargo"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-bold text-dark small ms-1">Account Type</label>
+                                            <select 
+                                                value={accountType}
+                                                onChange={(e) => setAccountType(e.target.value)}
+                                                className="form-select bg-light border-0 py-2 py-md-3 form-control"
+                                                required
+                                            >
+                                                <option value="checking">Checking</option>
+                                                <option value="savings">Savings</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-bold text-dark small ms-1">Account Holder Name</label>
+                                            <div className="input-group">
+                                                <span className="input-group-text bg-light border-0 px-3">
+                                                    <i className="fa-solid fa-user text-muted small"></i>
+                                                </span>
+                                                <input 
+                                                    type="text" 
+                                                    value={bankAccountHolder}
+                                                    onChange={(e) => setBankAccountHolder(e.target.value)}
+                                                    className="form-control bg-light border-0 py-2 py-md-3" 
+                                                    placeholder="Full name as shown on bank account"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label className="form-label fw-bold text-dark small ms-1">Account Number</label>
+                                            <div className="input-group">
+                                                <span className="input-group-text bg-light border-0 px-3">
+                                                    <i className="fa-solid fa-credit-card text-muted small"></i>
+                                                </span>
+                                                <input 
+                                                    type="text" 
+                                                    value={bankAccountNumber}
+                                                    onChange={(e) => setBankAccountNumber(e.target.value)}
+                                                    className="form-control bg-light border-0 py-2 py-md-3" 
+                                                    placeholder="Your account number"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-12">
+                                            <label className="form-label fw-bold text-dark small ms-1">Routing Number (Optional)</label>
+                                            <div className="input-group">
+                                                <span className="input-group-text bg-light border-0 px-3">
+                                                    <i className="fa-solid fa-code text-muted small"></i>
+                                                </span>
+                                                <input 
+                                                    type="text" 
+                                                    value={bankRoutingNumber}
+                                                    onChange={(e) => setBankRoutingNumber(e.target.value)}
+                                                    className="form-control bg-light border-0 py-2 py-md-3" 
+                                                    placeholder="Your bank routing number"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="d-flex flex-column flex-sm-row align-items-center gap-3 pt-4 border-top">
+                                        <button 
+                                            type="submit" 
+                                            disabled={withdrawalUpdating}
+                                            className="btn btn-info px-5 py-3 rounded-3 fw-bold shadow-sm d-flex align-items-center gap-2"
+                                        >
+                                            {withdrawalUpdating ? (
+                                                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            ) : (
+                                                <>
+                                                    Save Withdrawal Details
+                                                    <i className="fa-solid fa-circle-check"></i>
+                                                </>
+                                            )}
+                                        </button>
+                                        
+                                        <button 
+                                            type="button"
+                                            onClick={() => setShowWithdrawalForm(false)}
+                                            className="btn btn-light px-4 py-3 rounded-3 fw-bold"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>

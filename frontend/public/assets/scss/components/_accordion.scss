@@ -26,7 +26,7 @@
         text-align: left;
         padding: 35px 0;
         @media #{$xs}{
-            font-size: 14px;
+            font-size: 16px;
         }
         & .accordion-btn{
             position: absolute;
@@ -155,7 +155,7 @@
         line-height: 28px;
         color: #595B62;
         @media #{$lg}{
-            font-size: 14px;
+            font-size: 16px;
             line-height: 23px;
             padding: 30px 35px;
             padding-top: 15px;

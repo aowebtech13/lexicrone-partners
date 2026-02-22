@@ -91,7 +91,7 @@ const {title, sub_title, box_1, box_3_title, box_3_des, box_3_btn}  = payment_co
 const PaymentArea = () => {
     return (
         <>
-        <div id="payment-method" className="tp-payment__area pt-110 pb-110">
+        <div id="payment-method" className="tp-payment__area pt-110 pb-10">
                <div className="container">
                   <div className="row justify-content-center">
                      <div className="col-xl-7">
@@ -107,7 +107,7 @@ const PaymentArea = () => {
                         <div className="row">
  
                             {box_1.map((item, i)  => 
-                                <div key={i} className="col-md-6 mb-30">
+                                <div key={i} className="col-md-6 mb-3">
                               <div className={`tp-payment__item tp-payment__bg-color-${item.cls} p-relative z-index wow `} 
                                     data-wow-duration=".9s" 
                                     data-wow-delay={item.delay}>
@@ -129,30 +129,7 @@ const PaymentArea = () => {
                         </div>
                      </div>
 
-                     <div className="col-xl-12 mb-30">
-                        <div className="tp-payment__item p-relative z-index wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">
-                           <div className="tp-payment__shape-1">
-                              <Image src={bg_img} alt="theme-pure" />
-                           </div>
-                           <div className="row">
-                              <div className="col-md-6">
-                                 <div className="tp-payment__content tp-payment__content-space">
-                                    <h3 className="tp-payment__title">{box_3_title}</h3>
-                                    <p>{box_3_des}</p>
-                                    <Link href="/register">{box_3_btn}<i className="far fa-arrow-right"></i></Link>
-                                 </div>
-                              </div>
-                              <div className="col-md-6">
-                                 <div className="tp-payment__shape-2">
-                                    <Image src={payment_img_1} alt="theme-pure" />
-                                 </div>
-                                 <div className="tp-payment__shape-3 d-none d-sm-block">
-                                    <Image src={payment_img_2} alt="theme-pure" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+                  
 
                   </div>
                </div>

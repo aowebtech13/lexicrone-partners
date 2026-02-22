@@ -37,11 +37,11 @@ const RegisterForm = () => {
   const onSubmit = async (data) =>{ 
     try {
       await registerUser(data);
-      toast.success("Registration Successful!");
+      toast.success("Partner Registration Successful!");
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
-      const errorMessage = error.response?.data?.message || error.message || "Registration failed. Please try again.";
+      const errorMessage = error.response?.data?.message || error.message || "Partner Registration failed. Contact Support";
       toast.error(errorMessage);
     }
   };
@@ -77,7 +77,7 @@ const RegisterForm = () => {
                 className="inputText"
                 {...register("email")}
               />
-              <span className="floating-label">Your Email</span>
+              <span className="floating-label"> Email Address</span>
               <p className="form_error">{errors.email?.message}</p>
             </div>
           </div>

@@ -41,5 +41,15 @@ class InvestmentPlanSeeder extends Seeder
             'duration_days' => 90,
             'return_type' => 'daily',
         ]);
+
+        \App\Models\InvestmentPlan::create([
+            'name' => 'Enterprise',
+            'description' => 'Institutional grade investing for large portfolios.',
+            'min_amount' => 50001,
+            'max_amount' => 1000000,
+            'interest_rate' => 5.0,
+            'duration_days' => 120,
+            'return_type' => 'daily',
+        ]);
     }
 }

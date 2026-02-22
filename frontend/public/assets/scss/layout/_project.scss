@@ -70,7 +70,7 @@
             margin-bottom: 38px;
             padding-right: 12px;
             @media #{$xs}{
-                font-size: 14px;
+                font-size: 16px;
                 padding-right: 0;
                 padding-bottom: 30px;
                 margin-bottom: 30px;
@@ -81,7 +81,7 @@
         margin-right: 40px;
         & span{
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
             color: var(--tp-grey-2);
             padding-bottom: 8px;
             display: inline-block;
@@ -105,7 +105,7 @@
         }
         & span{
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
             color: var(--tp-grey-2);
             padding-bottom: 8px;
             display: inline-block;
@@ -221,7 +221,7 @@
         & p{
             padding-bottom: 10px;
             @media #{$sm}{
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 20px;
             }
         }
@@ -258,7 +258,7 @@
 .portfolio-filter{
     & button{
         font-weight: 600;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 12px;
         color: #5F6168;  
         border: 1px solid #F0F0F0;

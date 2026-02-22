@@ -85,7 +85,7 @@
             padding: 20px 30px;
             font-weight: 500;
             font-size: 15px;
-            line-height: 14px;
+            line-height: 16px;
             color: var(--tp-common-white);
             width: 100%;
             @include tp-placeholder{
@@ -105,7 +105,7 @@
             padding: 20px 30px;
             font-weight: 500;
             font-size: 15px;
-            line-height: 14px;
+            line-height: 16px;
             color: var(--tp-common-white);
             width: 100%;
             resize: none;
@@ -242,7 +242,7 @@
             line-height: 34px;
             border: 1px solid #E5E5E5;
             display: inline-block;
-            font-size: 14px;
+            font-size: 16px;
             transition: .3s;
             margin-right: 6px;
             &:hover{
@@ -551,8 +551,8 @@
     }
     &-from-subtitle{
         font-weight: 400;
-        font-size: 14px;
-        line-height: 14px;
+        font-size: 16px;
+        line-height: 16px;
         color: #939498;
         padding-bottom: 35px;
         &::before{
@@ -591,7 +591,7 @@
             & label{
                 font-weight: 400;
                 font-size: 15px;
-                line-height: 14px;
+                line-height: 16px;
                 color: #7C7C7C;
             }
         }
@@ -603,7 +603,7 @@
             & a{
                 font-weight: 400;
                 font-size: 15px;
-                line-height: 14px;
+                line-height: 16px;
                 color: var(--tp-common-black);    
             }
         }
@@ -612,12 +612,12 @@
         & a{
             font-weight: 400;
             font-size: 15px;
-            line-height: 14px;
+            line-height: 16px;
             color: #7C7C7C;
             & span{
                 font-weight: 500;
                 font-size: 15px;
-                line-height: 14px;
+                line-height: 16px;
                 color: var(--tp-common-blue-4);
             }
         }
@@ -633,7 +633,7 @@
         padding: 0px 30px;
         font-weight: 500;
         font-size: 15px;
-        line-height: 14px;
+        line-height: 16px;
         width: 100%;
         height: 60px;
         line-height: 55px;
@@ -682,7 +682,7 @@
                 color: var(--tp-common-black);
                 margin-bottom: 10px;
                 font-weight: 400;
-                font-size: 14px;
+                font-size: 16px;
                 &:last-child{
                     margin-bottom: 0;
                 }

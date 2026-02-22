@@ -31,6 +31,11 @@ class User extends Authenticatable
         'total_profit',
         'total_invested',
         'withdrawal_date',
+        'bank_name',
+        'bank_account_holder',
+        'bank_account_number',
+        'bank_routing_number',
+        'account_type',
     ];
 
     /**

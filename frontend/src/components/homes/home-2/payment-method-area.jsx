@@ -134,7 +134,7 @@ const PaymentMethodArea = () => {
           <div className="container-fluid g-0">
             <div className="row g-0 justify-content-center">
               <div className="col-xl-7">
-                <div className="tp-payment-method__title-box text-center mb-20">
+                <div className="tp-payment-method__title-box text-center mb-2">
                   <h3 className="tp-section-title-lg pb-10">{title}</h3>
                   <p>{desctiption}</p>
                 </div>

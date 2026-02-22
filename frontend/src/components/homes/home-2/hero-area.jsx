@@ -20,11 +20,11 @@ import hero_shape_5 from "../../../../public/assets/img/hero/hero-shape-2-2.png"
 const hero_content = {
   bg_img: "/assets/img/hero/hero-bg-2.png",
   scroll_btn: "Scroll Down",
-  title: <><i><i className="child-1">Welcome</i> </i>{" "}
-  <i><i className="child-1">Investor Name</i> </i>{" "}
+
+    
 
 
-  </>,
+ 
   btn_text: "Call your Account Manager",
   sub_title: <>Over<span>5Ok+ Client</span> all over the world</>,
   

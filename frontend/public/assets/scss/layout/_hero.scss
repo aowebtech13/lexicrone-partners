@@ -98,7 +98,7 @@
         & p{
             font-weight: 400;
             font-size: 15px;
-            line-height: 14px;
+            line-height: 16px;
             color: rgba(1, 16, 61, 0.60);
         }
     }
@@ -122,7 +122,7 @@
             padding-left: 55px;
             padding-right: 180px;
             font-weight: 400;
-            font-size: 14px;
+            font-size: 16px;
             @media #{$xs}{
                 padding-right: 20px;
             }
@@ -310,7 +310,7 @@
         padding-bottom: 70px;
         & h4{
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 17px;    
             color: rgba(255, 255, 255, 0.6);
             font-family: var(--tp-ff-mont);
@@ -786,7 +786,7 @@
         }
         & img{
             max-width: inherit;
-            box-shadow: -14px 20px 50px rgba(32, 33, 36, 0.2);
+            box-shadow: -16px 20px 50px rgba(32, 33, 36, 0.2);
             border-radius: 16px;
             @media #{$xxl,$xl}{
                 max-width: 100%;
@@ -907,7 +907,7 @@
             display: block;
             font-family: var(--tp-ff-mont);
             font-weight: 500;
-            font-size: 14px;
+            font-size: 16px;
             color: #5F6168;
             transform: translateY(-4px);
         }

@@ -1,20 +1,18 @@
 import React from 'react';
 import HeaderSix from '@/src/layout/headers/header-6';
 import Footer from '@/src/layout/footers/footer';
-import DepositArea from './deposit-area';
-import PaymentArea from '../homes/home-2/payment-area';
+import FaqArea from '../homes/home-2/faq-area';
 import Breadcrumb from '../../common/breadcrumbs/breadcrumb';
 
-const Deposit = () => {
+const FaqMain = () => {
     return (
         <>
             <HeaderSix style_2={true} />
             <div id="smooth-wrapper">
                 <div id="smooth-content">
                     <main className="fix">
-                        <Breadcrumb title_top="Add Funds" title_bottom="Deposit" />
-                        <PaymentArea />
-                        <DepositArea />
+                        <Breadcrumb title_top="Frequently Asked" title_bottom="Questions" />
+                        <FaqArea style_service={true} />
                     </main>
                     <Footer />
                 </div>
@@ -23,4 +21,4 @@ const Deposit = () => {
     );
 };
 
-export default Deposit;
+export default FaqMain;

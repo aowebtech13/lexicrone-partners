@@ -95,11 +95,9 @@
             <aside class="w-72 min-h-screen glass-sidebar flex flex-col">
                 <div class="p-8 mb-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-tr from-primary to-secondary rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/30">
-                            <i class="fas fa-shield-halved text-2xl"></i>
-                        </div>
+                        <img src="https://lexicrone.com/images/logo.png"  alt="Lexicrone" class="h-16 w-auto">
                         <div class="flex flex-col">
-                            <span class="text-2xl font-black tracking-tighter text-slate-900 leading-none">LEXICRONE</span>
+
                             <span class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mt-1">Admin Portal</span>
                         </div>
                     </div>
